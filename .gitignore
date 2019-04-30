@@ -74,13 +74,13 @@ target/
 
 # pyenv
 .python-version
-
+.idea/
 # celery beat schedule file
 celerybeat-schedule
-
+workspace.xml
 # SageMath parsed files
 *.sage.py
-
+.idea/workspace.xml
 # Environments
 .env
 .venv
