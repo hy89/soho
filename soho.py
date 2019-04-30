@@ -71,9 +71,8 @@ def get_data():
 
 def save2csv(all_packages):
     df = pd.DataFrame(all_packages)
-
     df.to_csv('./soho-%s.csv' % str(datetime.date.today()))
-    return df
+    # return df
 
 
 def count_of_coin(df):
@@ -128,10 +127,12 @@ def analysis(df):
 
 def run():
     try:  # 能够读取文件，则读取文件，不能读取则去网络请求获取当天数据，同时将数据保存到csv文件中
-        df = pd.read_csv('./soho-%s.csv' % str(datetime.date.today()))
+        df = pd.read_csv('./soho-%s.csv' % str(datetime.date.today()), index_col=0)
     except:
         all_packages = get_data()
-        df = save2csv(all_packages)
+        save2csv(all_packages)  # 保存，再读取
+        df = pd.read_csv('./soho-%s.csv' % str(datetime.date.today()), index_col=0)
+    print(df)
     analysis(df)
 
 
