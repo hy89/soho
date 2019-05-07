@@ -132,7 +132,7 @@ def run():
         all_packages = get_data()
         save2csv(all_packages)  # 保存，再读取
         df = pd.read_csv('./soho-%s.csv' % str(datetime.date.today()), index_col=0)
-    print(df)
+    # print(df)
     analysis(df)
 
 
