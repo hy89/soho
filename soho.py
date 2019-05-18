@@ -107,8 +107,10 @@ def pass_num(df):
     # print(df.passRate)
     passed = df[((df.status == 6) | (df.status == 5)) & (df.product_id == 12714588) & (df.passRate >= 0.85)]
     passed_num = passed.shape[0]
-    no_pass = df[(df.status == 5) & (df.product_id == 12714588) & (df.passRate < 0.85)]
-    no_pass_num = no_pass.shape[0]
+    no_pass = df[(df.status == 5) & (df.passRate < 0.85) & (df.product_id == 12714588)]  # 5审核过（不区分是否发奖励）
+    a = df[(df.status == 4) & (df.product_id == 12714588)].shape[0]  # 审核后，不予发放奖励的状态
+
+    no_pass_num = no_pass.shape[0] + a
     # print(passed_num, no_pass_num)
     print('音频--已审通过或已发奖励包数：%s，' % passed_num, '已审未通过包数：%s，' % no_pass_num,
           '通过率：%.2f' % (passed_num / (no_pass_num + passed_num)))
