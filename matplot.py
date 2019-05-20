@@ -35,13 +35,23 @@ def everyday_tasks():
     date = submitDate.map(timestamp2date)
     # 以日期分组统计每天的个数
     juhe = date.groupby(date).count()
-    print(juhe.shape[0])
-    plt.figure(figsize=(20, 8))
-    plt.plot(juhe.index, juhe.values)
-    for a, b in zip(juhe.index, juhe.values):
-        plt.text(a, b, b, ha='center', va='bottom', fontsize=16)
-    plt.xticks(juhe.index, rotation=90)
-    plt.show()
+    # print(juhe.shape[0])
+    # plt.figure(figsize=(20, 8))
+    # plt.plot(juhe.index, juhe.values)
+    # for a, b in zip(juhe.index, juhe.values):
+    #     plt.text(a, b, b, ha='center', va='bottom', fontsize=16)
+    # plt.xticks(juhe.index, rotation=90)
+    # plt.show()
+
+    bar = (
+        Bar()
+            .add_xaxis(list(juhe.index))
+            .add_yaxis("任务量", [int(i) for i in juhe.values])
+            .set_global_opts(title_opts=opts.TitleOpts(title="任务量统计", subtitle="天数：%s"%juhe.shape[0]))
+        # 或者直接使用字典参数
+        # .set_global_opts(title_opts={"text": "主标题", "subtext": "副标题"})
+    )
+    bar.render()
 
 
 if __name__ == '__main__':
