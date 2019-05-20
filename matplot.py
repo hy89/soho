@@ -5,6 +5,10 @@ import datetime
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
+from example.commons import Faker
+from pyecharts.charts import Bar, Line
+from pyecharts import options as opts
+
 
 def timestamp2date(timestamp):
     """
@@ -26,15 +30,16 @@ def everyday_tasks():
     # 取出提交时间
     submitDate = df['submitDate']
     # 取秒和取整
-    submitDate = submitDate.map(lambda x: int(x/1000))
+    submitDate = submitDate.map(lambda x: int(x / 1000))
     # print(submitDate)
     date = submitDate.map(timestamp2date)
     # 以日期分组统计每天的个数
     juhe = date.groupby(date).count()
-    print(type(juhe))
-    print(juhe.index)
-    print(juhe.values)
+    print(juhe.shape[0])
+    plt.figure(figsize=(20, 8))
     plt.plot(juhe.index, juhe.values)
+    for a, b in zip(juhe.index, juhe.values):
+        plt.text(a, b, b, ha='center', va='bottom', fontsize=16)
     plt.xticks(juhe.index, rotation=90)
     plt.show()
 
@@ -42,3 +47,4 @@ def everyday_tasks():
 if __name__ == '__main__':
     # print(timestamp2date(1558240185))
     everyday_tasks()
+    # line_base().render()
